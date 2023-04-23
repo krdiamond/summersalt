@@ -2,6 +2,12 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
+
+  const handleClick = () => {
+    console.log('Button clicked!');
+  };
+
+
   return (
     <div className={styles.container}>
       <Head>
@@ -19,6 +25,11 @@ export default function Home() {
         </p>
 
         <div className={styles.grid}>
+          <div className={styles.card}>
+            <h3>Hello World!</h3>
+            <button onClick={handleClick}>Click me!</button>
+          </div>
+
           <a href="https://nextjs.org/docs" className={styles.card}>
             <h3>Documentation &rarr;</h3>
             <p>Find in-depth information about Next.js features and API.</p>
