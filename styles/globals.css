@@ -16,6 +16,7 @@ a {
 }
 
 img {
+  width: 100px;
   max-width: 100%;
   height: auto;
 }
@@ -29,10 +30,10 @@ ul {
 
 ul {
   padding: 0;
-  list-style: none;
 }
 
 button {
   padding: 0.5rem 1rem;
   font-weight: bold;
 }
+
