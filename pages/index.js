@@ -12,7 +12,8 @@ export default function Home() {
   const [page, setPage] = useState(1);
   // updates the page number that the API should call.   
   // This function doesn't directly trigger the next API call.  Instead, it updates the pageNumber state variable which tiggers a re-render of the component.
-  // This triggers useEffect to run again and make a new API call with the new page number stored as a variable interpolated inside the API link
+  // Page is set a dependancy for useEffect with fetchData inside it, This triggers useEffect to run again and make a new API call with the new page number stored as a variable interpolated inside the API link
+
 
   const [loading, setLoading] = useState(false);
   // This captures when the new API is being fetched (true/false),  This happens quickly and is only seen for a split second.
@@ -23,15 +24,15 @@ export default function Home() {
   
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true); //set to true only for a split second when the api is being called
+      setLoading(true); //set to true only for a split second when the api is awaiting a response
       const response = await fetch(`https://summersalt.com/collections/swimwear/products.json?page=${page}&limit=6`);
       const data = await response.json();
-      setProducts((prevProducts) => [...prevProducts, ...data.products]); //updates the products array with either the first render of page 1, and then adds products to the end of the array after rerenders are triggeredd by page updates
+      setProducts((prevProducts) => [...prevProducts, ...data.products]); //updates the products array with the first render of page 1, and then adds products to the end of the array after rerenders are triggeredd by page updates
       setLoading(false); //quickly back to false
     };
 
     fetchData();
-  }, [page]); // as a dependancy setPage will rerender the component and this function will be called
+  }, [page]); // as a dependancy setPage will rerender the component and this function will be called again
 
   useEffect(() => {
     const container = containerRef.current; //creates a variable for the container set with useRef 
@@ -45,8 +46,8 @@ export default function Home() {
 
     container.addEventListener('scroll', handleScroll); //adds an event listener on the container
 
-    return () => { //returning a function inside the useEffect hook can be good for cleanup when the component unmounts. 
-      container.removeEventListener('scroll', handleScroll); // remove the event listnener To prevent any potential issues that might occur if the event listener is still attached to the component after it has been unmounted.
+    return () => { //returning a function inside the useEffect hook for cleanup when the component unmounts. 
+      container.removeEventListener('scroll', handleScroll); // remove the event listnener to prevent any potential issues that might occur if the event listener is still attached to the component after it has been unmounted.
     };
 
   }, [loading]);
