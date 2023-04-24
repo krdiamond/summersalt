@@ -39,7 +39,6 @@ export default function Home() {
       const { scrollTop, scrollHeight, clientHeight } = container; //sets variables for all the positions needed to know when the user is at the bottom of the container to do another API call
 
       if (scrollHeight - scrollTop === clientHeight && !loading) { // if a user is at the right place to make a new API and nothing is currently loading this will increase the page by 1
-        console.log('Fetching next page...'); //just checking to make sure the new page is being called correctly
         setPage((prevPage) => prevPage + 1);  //function to update the page's state to the next page
       }
     };
@@ -74,7 +73,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-        
+
         <div className={styles.loading}>
           {loading && <p>Loading...</p>}
         </div> 
